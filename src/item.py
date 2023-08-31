@@ -8,7 +8,7 @@ class Item:
 	"""
 	pay_rate = 1.0
 	all = []
-	CSV_PATH = os.path.join('../src/items.csv')			# Глобальный путь к файлу items.csv
+	csv_path = os.path.join('../src/items.csv')  # Глобальный путь к файлу items.csv
 
 	def __init__(self, name: str, price: float, quantity: int) -> None:
 		"""
@@ -21,6 +21,12 @@ class Item:
 		self.__name = name
 		self.price = price
 		self.quantity = quantity
+
+	def __repr__(self):
+		return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+	def __str__(self):
+		return self.name
 
 	@property
 	def name(self):
@@ -35,15 +41,15 @@ class Item:
 
 	@classmethod
 	def instantiate_from_csv(cls):
-		Item.all.clear()							# Очистка списка Item.all
-		with open(cls.CSV_PATH, encoding="cp1251") as csvfile:
+		Item.all.clear()  # Очистка списка Item.all
+		with open(cls.csv_path) as csvfile:
 			reader = csv.DictReader(csvfile)
 			for row in reader:
 				name = row["name"]
 				price = int(row["price"])
 				quantity = int(row["quantity"])
-				item = cls(name, price, quantity)  	# Создание экземпляра класса Item
-				cls.all.append(item)  				# Добавление экземпляра в список all
+				item = cls(name, price, quantity)  # Создание экземпляра класса Item
+				cls.all.append(item)  # Добавление экземпляра в список all
 
 	def calculate_total_price(self) -> float:
 		"""
