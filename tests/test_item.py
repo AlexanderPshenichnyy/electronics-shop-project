@@ -33,7 +33,6 @@ def test_all_items():
 
 def test_instantiate_from_csv():
 	Item.all = []
-	Item.CSV_PATH = 'test_items.csv'
 	Item.instantiate_from_csv()
 	assert len(Item.all) == 5
 	assert Item.all[0].name == 'Смартфон'
@@ -52,3 +51,13 @@ def test_string_to_number():
 	assert Item.string_to_number('5') == 5
 	assert Item.string_to_number('5.0') == 5
 	assert Item.string_to_number('5.5') == 5
+
+
+def test_repr():
+	item = Item("Смартфон", 10000, 20)
+	assert repr(item) == "Item('Смартфон', 10000, 20)"
+
+
+def test_str():
+	item = Item("Смартфон", 10000, 20)
+	assert str(item) == 'Смартфон'
