@@ -8,7 +8,7 @@ class Item:
 	"""
 	pay_rate = 1.0
 	all = []
-	csv_path = os.path.join('../src/items.csv')  # Глобальный путь к файлу items.csv
+	csv_path = os.path.join('items.csv')  # Глобальный путь к файлу items.csv
 
 	def __init__(self, name: str, price: float, quantity: int) -> None:
 		"""
