@@ -1,6 +1,5 @@
 # """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-import os
 
 from src.item import Item
 
@@ -34,7 +33,6 @@ def test_all_items():
 
 def test_instantiate_from_csv():
 	Item.all = []
-	Item.csv_path = os.path.join('test_items.csv')
 	Item.instantiate_from_csv()
 	assert len(Item.all) == 5
 	assert Item.all[0].name == 'Смартфон'
