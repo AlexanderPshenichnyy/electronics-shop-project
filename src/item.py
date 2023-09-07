@@ -8,7 +8,9 @@ class Item:
 	"""
 	pay_rate = 1.0
 	all = []
-	csv_path = os.path.join('items.csv')  # Глобальный путь к файлу items.csv
+	csv_path = 'C:/Users/Admin/Desktop/HomeWorks/electronics-shop-project/src/items.csv'
+	# Глобальный путь к файлу items.csv
+	ABSOLUTE_PATH = os.path.abspath(csv_path)
 
 	def __init__(self, name: str, price: float, quantity: int) -> None:
 		"""
@@ -42,7 +44,7 @@ class Item:
 	@classmethod
 	def instantiate_from_csv(cls):
 		Item.all.clear()  # Очистка списка Item.all
-		with open(cls.csv_path) as csvfile:
+		with open(cls.ABSOLUTE_PATH) as csvfile:
 			reader = csv.DictReader(csvfile)
 			for row in reader:
 				name = row["name"]
