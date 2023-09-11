@@ -23,6 +23,7 @@ class Item:
 		self.__name = name
 		self.price = price
 		self.quantity = quantity
+		super().__init__()
 
 	def __repr__(self):
 		return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
