@@ -1,13 +1,17 @@
 import csv
 import os
+from src.exception import InstantiateCSVError
 
 
 class Item:
 	"""
 	Класс для представления товара в магазине.
 	"""
+	# Размер скидки
 	pay_rate = 1.0
+	# Список экземпляров класса Item
 	all = []
+	# Путь к items.csv
 	csv_path = 'C:/Users/Admin/Desktop/HomeWorks/electronics-shop-project/src/items.csv'
 	# Глобальный путь к файлу items.csv
 	ABSOLUTE_PATH = os.path.abspath(csv_path)
@@ -44,15 +48,28 @@ class Item:
 
 	@classmethod
 	def instantiate_from_csv(cls):
-		Item.all.clear()  # Очистка списка Item.all
-		with open(cls.ABSOLUTE_PATH) as csvfile:
-			reader = csv.DictReader(csvfile)
-			for row in reader:
-				name = row["name"]
-				price = int(row["price"])
-				quantity = int(row["quantity"])
-				item = cls(name, price, quantity)  # Создание экземпляра класса Item
-				cls.all.append(item)  # Добавление экземпляра в список all
+		try:
+			with open(cls.ABSOLUTE_PATH) as csvfile:
+				reader = csv.DictReader(csvfile)
+				# Очистка списка Item.all
+				cls.all.clear()
+				for row in reader:
+					#  Название товара
+					name = row["name"]
+					#  Стоимость товара
+					price = int(row["price"])
+					#  Количество товара
+					quantity = int(row["quantity"])
+					# Создание экземпляра класса Item
+					item = cls(name, price, quantity)
+					# Добавление экземпляра в список all
+					cls.all.append(item)
+
+		except FileNotFoundError:
+			raise FileNotFoundError('Отсутствует файл items.csv')
+
+		except KeyError:
+			raise InstantiateCSVError('Файл items.csv повреждён')
 
 	def calculate_total_price(self) -> float:
 		"""
