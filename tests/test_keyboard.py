@@ -1,6 +1,6 @@
 import pytest
 
-from src.keyboard import Keyboard, MixinLang
+from src.keyboard import Keyboard
 
 
 @pytest.fixture
